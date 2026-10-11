@@ -1,109 +1,102 @@
 # Vehicle Routing Problem: Metaheuristic Visualizations
 
-This repository contains standalone Python implementations of metaheuristic and optimization algorithms for constructing and visualizing customer-visiting routes on a grid.
+This repository contains standalone Python/Pygame demonstrations of metaheuristic and search-based methods for constructing and visualizing customer-visiting routes.
 
-Each script provides a small interactive **Pygame** application. You place customer locations with the mouse, run the selected algorithm, and watch its current best route and distance update during the search.
+Each script is an independent interactive application. Place customer locations on a grid, start the selected algorithm, and observe the current best route and its distance.
 
-> **Model scope:** The scripts inspected in this repository represent one depot and one route that visits every customer and returns to the depot. They are useful for studying route-order optimization, which is a single-tour form of the routing problem. Vehicle capacities, multiple vehicles, time windows, and customer demands are not represented in these implementations unless a particular script explicitly adds them.
+> **Scope:** The inspected scripts model a depot and a single tour that visits each customer and returns to the depot. This is a single-tour routing model, not a full capacitated, multi-vehicle VRP. Vehicle capacities, demands, time windows, and road-network travel costs should not be assumed unless a script explicitly implements them.
 
 ## Features
 
-- Interactive customer placement with left-click.
-- Grid-snapped coordinates for repeatable, easy-to-read layouts.
-- A fixed depot at the center of the application window.
-- Animated route visualization while the selected search algorithm runs.
-- A running display of the iteration or generation and best route distance.
-- Final route and total distance printed to the terminal.
-- Separate scripts so algorithms can be run and studied independently.
+- Interactive customer placement by left-clicking.
+- Grid-snapped coordinates and a fixed depot at the center of the window.
+- Animated route visualization during optimization.
+- Iteration or generation and best-distance display.
+- Final route and distance printed to the terminal.
+- Separate scripts for experimenting with different search strategies.
 
 ## Requirements
 
 - Python 3.9 or later recommended.
 - Pygame.
 
-Install Pygame:
+Install dependencies:
 
 ```bash
-python -m pip install pygame
+python -m pip install -r requirements.txt
 ```
 
-## Run an algorithm
+If you prefer, install Pygame directly with `python -m pip install pygame`.
 
-1. Clone or download this repository.
-2. Open a terminal in the repository directory.
-3. Run one of the Python scripts, for example:
+## Run a script
 
-   ```bash
-   python "VRP using GA.py"
-   ```
+From a terminal opened in the repository directory, run a selected file. For example:
 
-   Or run Ant Colony Optimization:
+```bash
+python "VRP using GA.py"
+```
 
-   ```bash
-   python "VRP using ACO.py"
-   ```
+Or run Ant Colony Optimization:
 
-4. In the Pygame window, left-click inside the grid to add customer locations. Each click adds a customer; the depot is already placed at the center.
-5. Press **Enter** to start the algorithm.
-6. Observe the route and best-distance display. The final route and distance are also printed in the terminal.
-7. Close the Pygame window when you are finished.
+```bash
+python "VRP using ACO.py"
+```
 
-Because filenames contain spaces, keep the quotation marks around the filename when running a script from a terminal.
+1. Left-click inside the grid to add customer locations. The depot is already placed at the center.
+2. Press **Enter** to begin the selected algorithm.
+3. Observe the route and best-distance display as the search progresses.
+4. Read the final route and distance printed in the terminal.
+5. Close the Pygame window to exit.
 
-## Algorithm implementations
+Keep quotation marks around filenames that contain spaces.
 
-Each algorithm is provided as a separate file named `VRP using NAME.py`. The repository includes implementations such as:
+## Algorithm catalog
 
-- **Ant Colony Optimization (ACO)** — `VRP using ACO.py`
-- **Genetic Algorithm (GA)** — `VRP using GA.py`
-- **Artificial Beehive Algorithm (ABA)** — `VRP using ABA.py`
-- Additional population-based, swarm-inspired, evolutionary, and local-search methods, each in its own Python file.
+The repository contains many independent implementations. See **[ALGORITHMS.md](ALGORITHMS.md)** for the full filename catalog. The abbreviations in filenames identify the scripts; where an acronym may refer to multiple variants in the literature, consult the script's window title, comments, parameters, and operators rather than assuming a canonical expansion.
 
-The filename is the most reliable way to identify the implementation. Algorithm abbreviations can have different expansions in the literature, so consult the corresponding script before assuming a particular variant.
+## Route representation and objective
 
-## How the route is evaluated
+Customer locations are stored as two-dimensional coordinates. In the inspected examples, route length is computed using Euclidean distance between consecutive points. For a customer order `[c1, c2, ..., cn]`, the evaluated tour is:
 
-In the inspected implementations, customer locations are represented by two-dimensional coordinates. Route length is calculated using Euclidean distance between consecutive points. If the customer visit order is
+```text
+[depot, c1, c2, ..., cn, depot]
+```
 
-`[c_1, c_2, \ldots, c_n]`,
-
-the complete tour is
-
-`[depot, c_1, c_2, \ldots, c_n, depot]`.
-
-The objective is to minimize the sum of distances along that tour. Every customer is intended to be visited once before returning to the depot.
-
-The algorithms use different search strategies and parameter settings. Consequently, their results and runtime can differ. A single run does not establish that one algorithm is generally superior; fair comparisons should use the same customer coordinates, multiple random seeds or repeated trials, and clearly stated evaluation criteria.
+The objective is to minimize the sum of distances along the tour while visiting every customer once. The implementation details and search operators differ by script.
 
 ## Configuration
 
-Search parameters are defined near the top of each script. Depending on the algorithm, these may include population size, number of iterations or generations, mutation rate, pheromone influence, evaporation rate, and other algorithm-specific controls. Edit the relevant script's constants to change its search settings.
+Parameters are defined near the top of each Python file. Depending on the method, they may include population size, iteration or generation limits, mutation rate, pheromone settings, or method-specific exploration controls. Edit the constants in the selected script to change its configuration.
 
-The display grid and window dimensions are also configured in the script.
-
-## Repository organization
+## Repository structure
 
 ```text
 Vehicle-Routing-Problem/
 ├── README.md
+├── ALGORITHMS.md
+├── CONTRIBUTING.md
+├── requirements.txt
 ├── .gitattributes
 └── VRP using <ALGORITHM>.py
 ```
 
-The Python files are independent demos; there is no single launcher or shared configuration file in the current layout.
+The scripts are standalone programs; the current repository layout does not provide a shared launcher or common configuration module.
 
-## Limitations and interpretation
+## Limitations and research use
 
-- The route distance is based on straight-line Euclidean distance, not real road-network travel distance or travel time.
-- The visualizer models one depot and a single tour in the inspected scripts.
-- A stochastic metaheuristic may produce different results on different runs.
-- The displayed best distance is an optimization result for the generated coordinate layout, not a guarantee of a globally optimal solution.
-- Parameters and implementation details differ between scripts; inspect the selected file for its exact behavior.
+- Distances in the inspected scripts are Euclidean, not road-network distance or travel time.
+- The inspected examples use a single depot and a single tour.
+- Metaheuristics are stochastic; results may vary between runs.
+- A best-so-far solution is not a proof of global optimality.
+- Parameter choices and implementation details differ across files.
+- For a fair comparison, use identical customer coordinates, document parameters and stopping conditions, repeat stochastic runs, and report suitable summary statistics. Do not conclude that one method is superior from a single run.
 
-## Suggested use
+These demos are intended for learning, experimentation, and prototyping. Verify the selected script before using it as a research implementation of a particular algorithm variant.
 
-These examples can support classroom demonstrations, algorithm prototyping, and controlled comparisons of metaheuristic search strategies. For research comparisons, document the instance coordinates, parameter settings, stopping criteria, repeat count, and performance measures.
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidance on adding algorithms, documenting implementation details, and reporting comparisons.
 
 ## License
 
-No license information was identified in the repository root at the time this README was revised. Unless a license is added, do not assume that the code is available for unrestricted reuse or redistribution.
+No license file was present in the repository root during this documentation review. Unless a license is added, do not assume the code is available for unrestricted reuse or redistribution.
