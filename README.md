@@ -75,6 +75,8 @@ Vehicle-Routing-Problem/
 ├── README.md
 ├── ALGORITHMS.md
 ├── CONTRIBUTING.md
+├── CHANGELOG.md
+├── LICENSE.md
 ├── requirements.txt
 ├── .gitattributes
 └── VRP using <ALGORITHM>.py
@@ -95,8 +97,8 @@ These demos are intended for learning, experimentation, and prototyping. Verify 
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for guidance on adding algorithms, documenting implementation details, and reporting comparisons.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidance on adding algorithms, documenting implementation details, and reporting comparisons. Project-level documentation changes are recorded in [CHANGELOG.md](CHANGELOG.md).
 
 ## License
 
-No license file was present in the repository root during this documentation review. Unless a license is added, do not assume the code is available for unrestricted reuse or redistribution.
+No reuse license has been selected yet. See [LICENSE.md](LICENSE.md) for the current status. Unless a license is added, do not assume the code is available for unrestricted reuse or redistribution.
